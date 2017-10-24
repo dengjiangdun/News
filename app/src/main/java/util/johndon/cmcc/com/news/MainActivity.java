@@ -27,7 +27,7 @@ import java.util.TimerTask;
 
 import util.cmcc.johndon.com.show.CMCCProgressDialog;
 
-public class MainActivity extends AppCompatActivity implements NewsAdapter.LinkClickListener {
+public class MainActivity extends AppCompatActivity implements NewsAdapter.LinkClickListener ,NewsFragmentDialog.SeletTypeListener{
     private PullToRefreshRecyclerView mRvNews;
     private ImageView mIvChoose;
 
@@ -56,7 +56,7 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.LinkC
         mIvChoose.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                new NewsFragmentDialog().show(getFragmentManager(),"fragment_dialog");
             }
         });
 
@@ -189,5 +189,11 @@ public class MainActivity extends AppCompatActivity implements NewsAdapter.LinkC
         Uri content_url = Uri.parse(link);
         intent.setData(content_url);
         startActivity(intent);
+    }
+
+    @Override
+    public void setType(String type) {
+        this.type = type;
+        reFreshData();
     }
 }
